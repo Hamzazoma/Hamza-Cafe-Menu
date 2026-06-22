@@ -7,6 +7,7 @@ import Home from "@/pages/Home";
 import Menu from "@/pages/Menu";
 import Order from "@/pages/Order";
 import OrderConfirm from "@/pages/OrderConfirm";
+import Admin from "@/pages/Admin";
 import { CartProvider } from "@/context/CartContext";
 
 const queryClient = new QueryClient();
@@ -18,6 +19,7 @@ function Router() {
       <Route path="/menu" component={Menu} />
       <Route path="/order" component={Order} />
       <Route path="/order/confirm/:id" component={OrderConfirm} />
+      <Route path="/admin" component={Admin} />
       <Route component={NotFound} />
     </Switch>
   );

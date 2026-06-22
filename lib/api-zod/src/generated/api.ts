@@ -132,6 +132,37 @@ export const GetOrderResponse = zod.object({
 
 
 /**
+ * @summary Update order status
+ */
+export const UpdateOrderStatusParams = zod.object({
+  "id": zod.coerce.number()
+})
+
+export const UpdateOrderStatusBody = zod.object({
+  "status": zod.string()
+})
+
+export const UpdateOrderStatusResponse = zod.object({
+  "id": zod.number(),
+  "customerName": zod.string(),
+  "phone": zod.string(),
+  "status": zod.string(),
+  "total": zod.number(),
+  "notes": zod.string().nullish(),
+  "createdAt": zod.string(),
+  "items": zod.array(zod.object({
+  "menuItemId": zod.number(),
+  "menuItemName": zod.string(),
+  "menuItemNameAr": zod.string(),
+  "quantity": zod.number(),
+  "unitPrice": zod.number(),
+  "subtotal": zod.number(),
+  "notes": zod.string().nullish()
+}))
+})
+
+
+/**
  * @summary Get order statistics
  */
 export const GetOrderStatsResponse = zod.object({

@@ -64,6 +64,10 @@ export interface Order {
   items: OrderItemDetail[];
 }
 
+export interface UpdateOrderStatusBody {
+  status: string;
+}
+
 export type OrderStatsPopularItemsItem = {
   name: string;
   nameAr: string;

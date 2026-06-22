@@ -141,6 +141,33 @@ paths:
         "404":
           description: Not found
 
+  /orders/{id}/status:
+    patch:
+      operationId: updateOrderStatus
+      tags: [orders]
+      summary: Update order status
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UpdateOrderStatusBody"
+      responses:
+        "200":
+          description: Updated order
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Order"
+        "404":
+          description: Not found
+
   /orders/stats:
     get:
       operationId: getOrderStats
@@ -261,6 +288,13 @@ components:
           type: array
           items:
             $ref: "#/components/schemas/OrderItemDetail"
+
+    UpdateOrderStatusBody:
+      type: object
+      required: [status]
+      properties:
+        status:
+          type: string
 
     OrderStats:
       type: object

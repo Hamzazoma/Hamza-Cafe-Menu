@@ -175,6 +175,64 @@ router.get("/orders/stats", async (req, res) => {
   }
 });
 
+router.patch("/orders/:id/status", async (req, res) => {
+  try {
+    const id = Number(req.params.id);
+    if (isNaN(id)) {
+      res.status(400).json({ error: "Invalid id" });
+      return;
+    }
+
+    const { status } = req.body;
+    if (!status) {
+      res.status(400).json({ error: "status is required" });
+      return;
+    }
+
+    const [updated] = await db
+      .update(ordersTable)
+      .set({ status })
+      .where(eq(ordersTable.id, id))
+      .returning();
+
+    if (!updated) {
+      res.status(404).json({ error: "Order not found" });
+      return;
+    }
+
+    const orderItems = await db.select().from(orderItemsTable).where(eq(orderItemsTable.orderId, id));
+    const allMenuItems = await db.select().from(menuItemsTable);
+    const menuItemMap = new Map(allMenuItems.map((m) => [m.id, m]));
+
+    const items = orderItems.map((oi) => {
+      const menuItem = menuItemMap.get(oi.menuItemId)!;
+      return {
+        menuItemId: oi.menuItemId,
+        menuItemName: menuItem?.name ?? "",
+        menuItemNameAr: menuItem?.nameAr ?? "",
+        quantity: oi.quantity,
+        unitPrice: Number(oi.unitPrice),
+        subtotal: Number(oi.subtotal),
+        notes: oi.notes ?? null,
+      };
+    });
+
+    res.json({
+      id: updated.id,
+      customerName: updated.customerName,
+      phone: updated.phone,
+      status: updated.status,
+      total: Number(updated.total),
+      notes: updated.notes ?? null,
+      createdAt: updated.createdAt.toISOString(),
+      items,
+    });
+  } catch (err) {
+    req.log.error({ err }, "Failed to update order status");
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
 router.get("/orders/:id", async (req, res) => {
   try {
     const id = Number(req.params.id);
