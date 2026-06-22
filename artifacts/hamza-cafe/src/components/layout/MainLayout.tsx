@@ -122,7 +122,7 @@ export function MainLayout({ children }: { children: React.ReactNode }) {
           </div>
           
           <div className="border-t border-background/10 mt-16 pt-8 text-center text-background/50 text-sm">
-            <p>© {new Date().getFullYear()} Hamza Cafe. All rights reserved.</p>
+            <p>© {new Date().getFullYear()} حمزه كافيه. جميع الحقوق محفوظة.</p>
           </div>
         </div>
       </footer>
