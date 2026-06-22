@@ -1,0 +1,31 @@
+kind = "web"
+previewPath = "/"
+title = "حمزه كافيه"
+version = "1.0.0"
+id = "artifacts/hamza-cafe"
+router = "path"
+
+[[integratedSkills]]
+name = "react-vite"
+version = "1.0.0"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 21754
+
+[services.development]
+run = "pnpm --filter @workspace/hamza-cafe run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/hamza-cafe", "run", "build" ]
+publicDir = "artifacts/hamza-cafe/dist/public"
+serve = "static"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "21754"
+BASE_PATH = "/"

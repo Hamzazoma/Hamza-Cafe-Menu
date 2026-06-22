@@ -1,0 +1,20 @@
+uploads = []
+outputs = []
+
+[[generated]]
+id = "SvjuFoOq9uZ15fY8NNvoo"
+uri = "file://artifacts/hamza-cafe/src/assets/hero.png"
+type = "image"
+title = "Hero cafe image"
+
+[[generated]]
+id = "10We30VLGQrV1qvqXZ-Ca"
+uri = "file://artifacts/hamza-cafe/src/assets/coffee-detail.png"
+type = "image"
+title = "Coffee cup detail"
+
+[[generated]]
+id = "ZNsmQZnAVRFVN-eYCKt-B"
+uri = "file://artifacts/hamza-cafe/src/assets/interior.png"
+type = "image"
+title = "Cafe interior wide"
